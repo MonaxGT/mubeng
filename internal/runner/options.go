@@ -16,6 +16,12 @@ func Options() *common.Options {
 	flag.StringVar(&opt.File, "f", "", "")
 	flag.StringVar(&opt.File, "file", "", "")
 
+	flag.StringVar(&opt.DB, "db", "", "")
+	flag.StringVar(&opt.DBURL, "dbURL", "", "")
+	flag.StringVar(&opt.DBUser, "dbUser", "", "")
+	flag.StringVar(&opt.DBPass, "dbPass", "", "")
+	flag.StringVar(&opt.DBName, "dbName", "", "")
+
 	flag.StringVar(&opt.Address, "a", "", "")
 	flag.StringVar(&opt.Address, "address", "", "")
 

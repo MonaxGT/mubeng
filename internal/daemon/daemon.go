@@ -15,6 +15,11 @@ func New(opt *common.Options) error {
 	args := []string{
 		"-f", opt.File,
 		"-a", opt.Address,
+		"-db", opt.DB,
+		"-dbURL", opt.DBURL,
+		"-dbUser", opt.DBUser,
+		"-dbPass", opt.DBPass,
+		"-dbName", opt.DBName,
 		"-t", opt.Timeout.String(),
 		"-r", strconv.Itoa(opt.Rotate),
 		"-o", opt.Output,

@@ -9,6 +9,11 @@ import (
 type Options struct {
 	File    string
 	Address string
+	DB      string
+	DBURL   string
+	DBUser  string
+	DBPass  string
+	DBName  string
 	Check   bool
 	Timeout time.Duration
 	Rotate  int
