@@ -4,8 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"strconv"
-
 	"github.com/jackc/pgx/v4"
 )
 
@@ -29,31 +27,19 @@ func (p *Postgresql) Open() error {
 
 func (p *Postgresql) Load() ([]string, error) {
 	var proxies []string
-	rows, err := p.conn.Query(context.Background(), "select raw_protocol, domain, port from proxies")
+	rows, err := p.conn.Query(context.Background(), "select protocol, ip_addr, port from good_proxy")
 	if err != nil {
 		return []string{}, errors.New(fmt.Sprintf("Query failed: %v\n", err))
 	}
 	for rows.Next() {
-		var raw_protocol int8
-		var domain string
-		var port int64
-		err = rows.Scan(&raw_protocol, &domain, &port)
+		var protocol string
+		var ip string
+		var port string
+		err = rows.Scan(&protocol, &ip, &port)
 		if err != nil {
 			return []string{}, err
 		}
-		proxies = append(proxies, fmt.Sprintf("%s://%s:%s", decodeProtocol(raw_protocol), domain, strconv.FormatInt(port, 10)))
+		proxies = append(proxies, fmt.Sprintf("%s://%s:%s", protocol, ip, port))
 	}
 	return []string{}, nil
-}
-
-func decodeProtocol(rawProto int8) string {
-	switch rawProto {
-	case 0:
-		return "http"
-	case 1:
-		return "https"
-	case 2:
-		return "socks"
-	}
-	return ""
 }
