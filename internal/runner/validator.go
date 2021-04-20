@@ -104,7 +104,7 @@ func checkProxy(proxies []string) []string {
 	for _, proxy := range proxies {
 		if _, value := keys[proxy]; !value {
 			_, err := mubeng.Transport(proxy)
-			if err == nil {
+			if err != nil {
 				keys[proxy] = true
 				lines = append(lines, proxy)
 			}

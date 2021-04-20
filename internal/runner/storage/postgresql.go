@@ -27,7 +27,7 @@ func (p *Postgresql) Open() error {
 
 func (p *Postgresql) Load() ([]string, error) {
 	var proxies []string
-	rows, err := p.conn.Query(context.Background(), "select protocol, ip_addr, port from good_proxy")
+	rows, err := p.conn.Query(context.Background(), "select protocol, ip_addr, port from proxy")
 	if err != nil {
 		return []string{}, errors.New(fmt.Sprintf("Query failed: %v\n", err))
 	}
@@ -41,5 +41,5 @@ func (p *Postgresql) Load() ([]string, error) {
 		}
 		proxies = append(proxies, fmt.Sprintf("%s://%s:%s", protocol, ip, port))
 	}
-	return []string{}, nil
+	return proxies, nil
 }
